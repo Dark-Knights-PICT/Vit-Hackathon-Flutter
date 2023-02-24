@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../features/appointments/appointments_status_screen.dart';
 import '../features/files/file_home.dart';
 import '../features/laws/laws.dart';
 
@@ -15,10 +16,9 @@ int pageIndex = 0;
 class _BottomBarState extends State<BottomBar> {
   PageController _pageController = PageController();
   List<Widget> pages = [
-    // TODO: Add AppointmentStatus() & ChatScreen() here
-    // const AppointmentStatus(),
+    // TODO: ChatScreen() here
+    const AppointmentStatus(),
     // const ChatScreen(),
-    const FileHome(),
     const LawsAndActs(),
     const FileHome(),
     const LawsAndActs(),

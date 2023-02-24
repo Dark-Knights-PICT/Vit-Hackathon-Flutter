@@ -114,7 +114,7 @@ class _NavDrawerState extends State<NavDrawer> {
                     onTap: () {
                       AwesomeDialog(
                         context: context,
-                        dialogType: DialogType.info,
+                        dialogType: DialogType.infoReverse,
                         animType: AnimType.bottomSlide,
                         headerAnimationLoop: false,
                         title: 'Signout?',
