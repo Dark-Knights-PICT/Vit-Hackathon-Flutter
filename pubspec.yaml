@@ -1,0 +1,47 @@
+name: darkknightspict
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.5
+  cloud_firestore: ^4.4.3
+  firebase_core: ^2.7.0
+  intl: ^0.17.0
+  firebase_auth: ^4.2.9
+  google_sign_in: ^6.0.1
+  fluttertoast: ^8.2.1
+  file_picker: ^5.2.5
+  firebase_storage: ^11.0.14
+  url_launcher: ^6.1.10
+  awesome_dialog: ^3.0.2
+  mailto: ^2.0.0
+  animated_text_kit: ^4.2.2
+  path: ^1.8.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/Lato-Light.ttf
+        - asset: assets/fonts/Lato-Italic.ttf
+          style: italic
