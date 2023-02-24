@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:darkknightspict/models/user.dart';
 import 'package:darkknightspict/project/bottombar.dart';
 import 'package:darkknightspict/project/drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -213,6 +214,7 @@ class _AppointmentsHomeState extends State<AppointmentsHome> {
                             'dateTime': appointmentDateTime,
                             'photoURL': user.photoURL,
                             'status': 'Pending',
+                            'caId': LocalUser.caId,
                           });
 
                           while (Navigator.canPop(context)) {
