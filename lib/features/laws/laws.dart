@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 _launchURL(url) async {
   await launchUrl(
-    url,
+    Uri.parse(url),
     mode: LaunchMode.inAppWebView,
   );
 }
