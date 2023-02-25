@@ -10,7 +10,7 @@ import '../models/user.dart';
 class SignIn {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future signInWithGoogleUser() async {
+  Future<bool> signInWithGoogleUser() async {
     late final bool isNewUser;
     try {
       UserCredential userCredential;
@@ -38,12 +38,12 @@ class SignIn {
         LocalUser.displayName = user['displayName'];
         LocalUser.photoURL = user['photoURL'];
         LocalUser.isCA = user['isCA'];
-        LocalUser.caId = user['caId'];
+        LocalUser.caId = user['caId'] ?? '';
       });
-      return;
+      return isNewUser;
     } catch (e) {
       log(e.toString());
-      return e;
+      return false;
     }
   }
 
