@@ -1,16 +1,23 @@
-import 'package:darkknightspict/firebase_options.dart';
-import 'package:darkknightspict/project/bottombar.dart';
-import 'package:darkknightspict/features/login/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'features/login/login.dart';
+import 'firebase_options.dart';
+import 'project/bottombar.dart';
+import 'services/local_notifications.dart';
+
+import 'services/firebase_notification.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  LocalNotificationService.initialize();
+  await FirebaseNotifications.initialize();
+  
   runApp(MyApp());
 }
 
