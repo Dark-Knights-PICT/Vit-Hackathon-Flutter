@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../features/appointments/appointments_status_screen.dart';
+import '../features/chat/chat_screen.dart';
 import '../features/files/file_home.dart';
 import '../features/laws/laws.dart';
 
@@ -16,10 +18,8 @@ int pageIndex = 0;
 class _BottomBarState extends State<BottomBar> {
   PageController _pageController = PageController();
   List<Widget> pages = [
-    // TODO: ChatScreen() here
     const AppointmentStatus(),
-    // const ChatScreen(),
-    const LawsAndActs(),
+    ChatScreen(uid: FirebaseAuth.instance.currentUser!.uid.toString()),
     const FileHome(),
     const LawsAndActs(),
   ];
