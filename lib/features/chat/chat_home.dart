@@ -59,7 +59,7 @@ class _ChatHomeState extends State<ChatHome> {
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection('Users')
-              .orderBy('lastMessageTime', descending: true)
+              .where('caId', isEqualTo: AdminInfo.uid)
               .snapshots(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {

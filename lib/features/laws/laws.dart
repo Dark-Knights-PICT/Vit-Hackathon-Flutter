@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 _launchURL(url) async {
-  await launchUrl(
-    Uri.parse(url),
-    mode: LaunchMode.inAppWebView,
-  );
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
 }
 
 class LawsAndActs extends StatelessWidget {

@@ -5,7 +5,11 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../services/file_picker_user.dart';
 
 _launchURL(url) async {
-  launchUrl(Uri.parse(url));
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
 }
 
 class FileHome extends StatefulWidget {
