@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:darkknightspict/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -46,13 +47,15 @@ class _SelectCAState extends State<SelectCA> {
                 return Column(
                   children: [
                     InkWell(
-                      onTap: () {
+                      onTap: () async {
                         final currUUID = FirebaseAuth.instance.currentUser!.uid;
-                        FirebaseFirestore.instance
+                        await FirebaseFirestore.instance
                             .collection("Users")
                             .doc(currUUID)
                             .update({'caId': userTile['uid']});
-                        Navigator.push(
+                        LocalUser.caId = userTile['uid'];
+                        if (!mounted) return;
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const BottomBar(),
