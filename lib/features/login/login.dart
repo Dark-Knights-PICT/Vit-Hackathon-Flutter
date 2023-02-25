@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:darkknightspict/features/login/widgets/select_ca_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../project/bottombar_admin.dart';
@@ -84,15 +85,30 @@ class LoginScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(25)),
                             child: InkWell(
                               onTap: () {
-                                SignIn().signInWithGoogleUser().then(
-                                      (_) => Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const BottomBar(),
-                                        ),
-                                      ),
-                                    );
+                                SignIn()
+                                    .signInWithGoogleUser()
+                                    .then((isNewUser) => {
+                                          if (!isNewUser)
+                                            {
+                                              Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const BottomBar(),
+                                                ),
+                                              ),
+                                            }
+                                          else
+                                            {
+                                              Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const SelectCA(),
+                                                ),
+                                              ),
+                                            }
+                                        });
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
