@@ -1,9 +1,15 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:darkknightspict/models/select_client_details.dart';
 import 'package:darkknightspict/features/login/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
 
+import '../../models/admin_info.dart';
+import '../../models/user.dart';
 import 'chat_screen.dart';
 
 class ChatHome extends StatefulWidget {
@@ -30,7 +36,14 @@ class _ChatHomeState extends State<ChatHome> {
         ),
         actions: [
           IconButton(
-            onPressed: () {
+            onPressed: () async {
+              LocalUser.uid = null;
+              AdminInfo.uid = null;
+              print("Hello");
+              log('Logout button pressed');
+              await GoogleSignIn().signOut();
+              await FirebaseAuth.instance.signOut();
+              if (!mounted) return;
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) => const LoginScreen()),
                   (Route<dynamic> route) => false);

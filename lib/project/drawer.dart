@@ -127,8 +127,8 @@ class _NavDrawerState extends State<NavDrawer> {
                           // await GoogleSignIn().disconnect();
                           await _auth.signOut();
                           if (!mounted) return;
-                          LocalUser.uid == null;
-                          AdminInfo.uid == null;
+                          LocalUser.uid = null;
+                          AdminInfo.uid = null;
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
