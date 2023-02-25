@@ -41,7 +41,7 @@ Future selectFile() async {
   file = File(path);
 }
 
-Future uploadFile(context, String id) async {
+Future uploadFile(context, String id, {String type = "UserDocument"}) async {
   if (file == null) return;
 
   final fileName = basename(file!.path);
@@ -60,7 +60,7 @@ Future uploadFile(context, String id) async {
       .collection("Documents")
       .add({
     'Name': fileName,
-    'Type': "UserDocument",
+    'Type': type,
     'URL': urlDownload,
     'createdAt': Timestamp.now(),
   });

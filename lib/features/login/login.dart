@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
+import '../../project/bottombar_admin.dart';
 import '../../project/bottombar.dart';
 import '../../services/google_signin.dart';
 
@@ -83,7 +84,7 @@ class LoginScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(25)),
                             child: InkWell(
                               onTap: () {
-                                SignIn().signInWithGoogle().then(
+                                SignIn().signInWithGoogleUser().then(
                                       (_) => Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
@@ -130,13 +131,15 @@ class LoginScreen extends StatelessWidget {
                             child: InkWell(
                               onTap: () {
                                 // TODO: Add admin page
-                                // Navigator.pushReplacement(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) =>
-                                //         const InitialPageAdmin(),
-                                //   ),
-                                // );
+                                SignIn().signInWithGoogleAdmin().then(
+                                      (_) => Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const BottomBarCA(),
+                                        ),
+                                      ),
+                                    );
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
