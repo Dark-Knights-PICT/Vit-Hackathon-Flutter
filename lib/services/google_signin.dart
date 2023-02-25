@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+
+import '../models/user.dart';
 
 class SignIn {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -10,27 +13,35 @@ class SignIn {
     late final bool isNewUser;
     try {
       UserCredential userCredential;
-      if (kIsWeb) {
-        var googleProvider = GoogleAuthProvider();
-        userCredential = await _auth.signInWithPopup(googleProvider);
-      } else {
-        final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-        final GoogleSignInAuthentication googleAuth =
-            await googleUser!.authentication;
-        final googleAuthCredential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken,
-          idToken: googleAuth.idToken,
-        );
-        userCredential = await _auth.signInWithCredential(googleAuthCredential);
-        isNewUser = userCredential.additionalUserInfo!.isNewUser;
-      }
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
+      final googleAuthCredential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      userCredential = await _auth.signInWithCredential(googleAuthCredential);
+      isNewUser = userCredential.additionalUserInfo!.isNewUser;
+
       if (isNewUser) {
         storeUserDetails();
       }
-      print("TEST  1");
-      print(_auth.currentUser!.uid);
+
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(_auth.currentUser!.uid)
+          .get()
+          .then((user) {
+        LocalUser.uid = user['uid'];
+        LocalUser.email = user['email'];
+        LocalUser.displayName = user['displayName'];
+        LocalUser.photoURL = user['photoURL'];
+        LocalUser.isCA = user['isCA'];
+        LocalUser.caId = user['caId'];
+      });
       return;
     } catch (e) {
+      log(e.toString());
       return e;
     }
   }
@@ -43,14 +54,15 @@ class SignIn {
     String email = auth.currentUser!.email.toString();
     User? user = auth.currentUser;
 
-    usercollection.doc(uid).set({
+    await usercollection.doc(uid).set({
       "displayName": user!.displayName,
       "phoneNumber": user.phoneNumber,
       "email": email,
       "photoURL": user.photoURL,
       "uid": user.uid,
       "lastMessageTime": Timestamp.now(),
-      "isAdmin": false,
+      "isCA": false,
+      "caId": null,
     }, SetOptions(merge: true));
 
     // TODO: Add Admin User to Database

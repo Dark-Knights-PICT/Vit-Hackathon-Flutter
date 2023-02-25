@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../features/login/login.dart';
 import 'developers.dart';
@@ -114,12 +115,14 @@ class _NavDrawerState extends State<NavDrawer> {
                     onTap: () {
                       AwesomeDialog(
                         context: context,
-                        dialogType: DialogType.info,
+                        dialogType: DialogType.infoReverse,
                         animType: AnimType.bottomSlide,
                         headerAnimationLoop: false,
                         title: 'Signout?',
                         desc: 'Do you really want to signout?',
                         btnOkOnPress: () async {
+                          await GoogleSignIn().signOut();
+                          // await GoogleSignIn().disconnect();
                           await _auth.signOut();
                           if (!mounted) return;
                           Navigator.pushAndRemoveUntil(

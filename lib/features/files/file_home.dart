@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../services/file_picker_user.dart';
 
 _launchURL(url) async {
-  launchUrl(url, mode: LaunchMode.inAppWebView);
+  launchUrl(Uri.parse(url));
 }
 
 class FileHome extends StatefulWidget {
