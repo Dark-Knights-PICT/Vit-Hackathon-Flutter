@@ -1,4 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:darkknightspict/models/admin_info.dart';
+import 'package:darkknightspict/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -125,6 +127,8 @@ class _NavDrawerState extends State<NavDrawer> {
                           // await GoogleSignIn().disconnect();
                           await _auth.signOut();
                           if (!mounted) return;
+                          LocalUser.uid == null;
+                          AdminInfo.uid == null;
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
